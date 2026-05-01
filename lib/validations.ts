@@ -1,0 +1,32 @@
+import { z } from "zod";
+
+// TODO: Phase 2 — expand with onboarding, job application, and profile schemas
+
+export const loginSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+export const registerSchema = z
+  .object({
+    email: z.string().email("Invalid email address"),
+    username: z.string().min(3).max(30),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export const jobApplicationSchema = z.object({
+  jobTitle: z.string().min(1, "Job title is required"),
+  company: z.string().min(1, "Company is required"),
+  url: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  status: z.enum(["APPLIED", "INTERVIEW", "ACCEPTED", "REJECTED", "NO_RESPONSE"]),
+  notes: z.string().optional(),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
+export type RegisterInput = z.infer<typeof registerSchema>;
+export type JobApplicationInput = z.infer<typeof jobApplicationSchema>;
