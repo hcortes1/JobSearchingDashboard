@@ -1,10 +1,19 @@
 import OnboardingWizard from "@/components/onboarding/OnboardingWizard";
 
-// TODO: Phase 3 — multi-step wizard, save to UserProfile, OpenAI job matching
 export default function OnboardingPage() {
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Welcome! Let's set up your profile.</h1>
+    <div className="max-w-xl mx-auto py-4">
+      <div className="mb-6">
+        <h1
+          className="text-2xl font-bold text-foreground tracking-tight"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          Welcome aboard.
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Let&apos;s build your profile so we can match you with the right roles.
+        </p>
+      </div>
       <OnboardingWizard />
     </div>
   );
